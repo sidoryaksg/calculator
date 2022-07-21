@@ -26,7 +26,7 @@ class CalculationApiTest {
     void calculate() throws Exception {
         String requestJson = """        
                 {
-                    "expression": "1+2*3/4.0"
+                    "expression": "1+2*3/4"
                 }""";
 
         String responseJson = """
