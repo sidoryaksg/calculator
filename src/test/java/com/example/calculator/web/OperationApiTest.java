@@ -32,7 +32,7 @@ class OperationApiTest {
 
     @MethodSource ("calculateDataSource")
     @ParameterizedTest
-    void calculate(double x, double y, char operator) throws Exception {
+    void calculate(double x, double y, char operator, String operationCode) throws Exception {
         String requestJson = """
                 {
                     "x": %f,
@@ -51,7 +51,7 @@ class OperationApiTest {
 
 
 
-        mockMvc.perform(post("/operations")
+        mockMvc.perform(post("/%s-operations".formatted(operationCode))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))
                 .andExpect(status().isOk())
@@ -62,10 +62,10 @@ class OperationApiTest {
 
     private static Stream<Arguments> calculateDataSource() {
         return Stream.of(
-                Arguments.of(1, 2, '+'),
-                Arguments.of(5, 3, '-'),
-                Arguments.of(2, 2, '*'),
-                Arguments.of(4, 1, '/')
+                Arguments.of(1, 2, '+', "an"),
+                Arguments.of(5, 3, '-', "sn"),
+                Arguments.of(2, 2, '*', "mn"),
+                Arguments.of(4, 1, '/', "dn")
         );
     }
 
